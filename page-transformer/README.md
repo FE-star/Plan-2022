@@ -2,10 +2,6 @@
 
 低逻辑型页面生成
 
-```
-https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.prod.min.js
-```
-
 ## Project Setup
 
 ```sh
