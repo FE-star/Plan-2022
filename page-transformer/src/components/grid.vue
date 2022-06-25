@@ -84,32 +84,42 @@ import Normal from './cards/normal.vue'
 // import jsonp from '../utils/jsonp'
 
 export default {
+    props: {
+        floor: Object
+    },
     data() {
         return {
-            schema: []
+            data: []
         }
     },
     components: {
         normal: Normal
     },
+    computed: {
+        classObject() {
+            return {
+                'card-container': true,
+                'col2': this.floor.col === 2,
+                'col3': this.floor.col === 3
+            }
+        }
+    },
     mounted() {
         import('../utils/data')
             .then(module => {
-                this.schema.push(...module.default.data.result)
+                this.data.push(...module.default.data.result)
             })
     }
 }
 </script>
 
 <template>
-    <div class="card-container col2">
+    <div :class="classObject">
         <h3 class="card-container-header">
-            <span class="rh-title">猜你喜欢</span>
-            <img class="rh-logo"
-                src="//gw.alicdn.com/imgextra/i2/O1CN016b1mMM1FxJlsXfWhU_!!6000000000553-2-tps-96-30.png" title="猜你喜欢">
+            <span class="rh-title">{{floor.title}}</span>
         </h3>
         <div class="card-content clearfix">
-            <component :data="item" v-for="item in schema" is="normal"></component>
+            <component :data="item" v-for="item in data" :is="floor.card"></component>
         </div>
     </div>
 </template>

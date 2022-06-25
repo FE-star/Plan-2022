@@ -17,6 +17,7 @@ class Lazy {
     load() {
         const imgs = this.imgs.slice(0)
         this.imgs.length = 0
+        // 没有 window.IntersectionObserver 直接全部图片加载
         if (this.immediateLoad) {
             imgs.forEach(img => {
                 img.el.src =  img.src
@@ -25,17 +26,36 @@ class Lazy {
             const map = new Map()
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        observer.unobserve(entry.target)
-                        const target = entry.target
-                        const value = map.get(target)
-                        if (value) {
-                            map.delete(target)
-                            target.src = value
-                        }
-                    }
+                    entry.isIntersecting ?
+                        onEnter(entry.target) : onExit(entry.target)
                 })
             }, defaultSettings)
+            // 当图片进入时
+            function onEnter(target) {
+                // 没有在加载
+                if (!target.dataset['loadState']) {
+                    target.setAttribute('data-load-state', 'pending')
+                    const value = map.get(target)
+                    if (value) {
+                        target.onload = function () {
+                            map.delete(target)
+                            observer.unobserve(target)
+                            target.removeAttribute('data-load-state')
+                            target.onload = null
+                        }
+                        target.src = value
+                    }
+                }
+            }
+            // 当图片退出时
+            function onExit(target) {
+                // 如果仍然在加载，停止加载图片
+                if (target.dataset['loadState']) {
+                    target.removeAttribute('data-load-state')
+                    target.onload = null
+                    target.src = defaultImg
+                }
+            }
             imgs.forEach((img) => {
                 map.set(img.el, img.src)
                 observer.observe(img.el)
@@ -57,6 +77,8 @@ function load() {
         }, 0)
     }
 }
+
+export const defaultImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 export function add(el, src) {
     lazy.add(el, src)

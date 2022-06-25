@@ -170,7 +170,7 @@
 </style>
 
 <script>
-import { add } from '../../utils/lazy'
+
 
 export default {
     props: {
@@ -179,21 +179,6 @@ export default {
     computed: {
         url: function () {
             return `//item.taobao.com/item.htm?id=${this.data.nid}`
-        }
-    },
-    directives: {
-        // Custom Directive(自定义指令)：https://staging-cn.vuejs.org/guide/reusability/custom-directives.html
-        src: {
-            // 在绑定元素的 attribute 前或事件监听器应用前调用
-            created: (el) => {
-                // 设置默认图片
-                el.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-            },
-            // 在绑定元素的父组件及他自己的所有子节点都挂载完成后调用
-            mounted: (el, binding) => {
-                // 挂载完成立刻加载图片
-                add(el, binding.value)
-            }
         }
     }
 }
