@@ -7,11 +7,9 @@
         page: Array
     },
     components: {
-      'grid': Grid
+      'grid': Grid,
+      Layout
     },
-    created() {
-      console.log(this)
-    }
   }
 </script>
 
