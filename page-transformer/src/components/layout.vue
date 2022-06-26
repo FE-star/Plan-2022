@@ -4,9 +4,9 @@
 </script>
 
 <template>
-    <header>
+    <!-- <header>
         <Header></Header>
-    </header>
+    </header> -->
     <main>
         <slot></slot>
     </main>

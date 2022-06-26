@@ -6,10 +6,12 @@ const defaultSettings = {
 
 class Lazy {
     constructor() {
-        // 看看有没有 window.IntersectionObserver：https://caniuse.com/?search=IntersectionObserver
-        // https://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html
-        this.immediateLoad = !window.IntersectionObserver
-        this.imgs = []
+        if (typeof window === 'object') {
+            // 看看有没有 window.IntersectionObserver：https://caniuse.com/?search=IntersectionObserver
+            // https://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html
+            this.immediateLoad = !window.IntersectionObserver
+            this.imgs = []
+        }
     }
     add(el, src) {
         this.imgs.push({ el, src })

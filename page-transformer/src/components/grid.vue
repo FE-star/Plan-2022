@@ -81,15 +81,18 @@
 
 <script>
 import Normal from './cards/normal.vue'
+import module from '../utils/data'
 // import jsonp from '../utils/jsonp'
 
 export default {
     props: {
         floor: Object
     },
-    data() {
+    data(vm) {
+        const data = vm.$props.floor.data
         return {
-            data: []
+            hasData: !!data,
+            data: data ? data : []
         }
     },
     components: {
@@ -105,10 +108,12 @@ export default {
         }
     },
     mounted() {
-        import('../utils/data')
-            .then(module => {
-                this.data.push(...module.default.data.result)
-            })
+        if (!this.hasData) {
+            import('../utils/data')
+                .then(module => {
+                    this.data.push(...module.default.data.result)
+                })
+        }
     }
 }
 </script>
