@@ -1,6 +1,7 @@
 <script>
   import Layout from './components/layout.vue'
   import Grid from './components/grid.vue'
+  import FlexGrid from './components/flex-grid.vue'
 
   export default {
     props: {
@@ -8,6 +9,7 @@
     },
     components: {
       'grid': Grid,
+      'flex-grid': FlexGrid,
       Layout
     },
   }
@@ -22,10 +24,3 @@
     </template>
   </Layout>
 </template>
-
-<style>
-  body, div {
-    margin: 0;
-    padding: 0;
-  }
-</style>

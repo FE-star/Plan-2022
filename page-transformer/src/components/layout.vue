@@ -7,7 +7,7 @@
     <header>
         <Header></Header>
     </header>
-    <main>
+    <main style="padding: 10px">
         <slot></slot>
     </main>
     <footer>

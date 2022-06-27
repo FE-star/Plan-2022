@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 #tmall-copyright {
     border-top: 2px solid #FF0036;
     background: #000;

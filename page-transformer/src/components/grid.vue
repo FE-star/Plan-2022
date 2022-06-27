@@ -81,7 +81,6 @@
 
 <script>
 import Normal from './cards/normal.vue'
-import module from '../utils/data'
 // import jsonp from '../utils/jsonp'
 
 export default {

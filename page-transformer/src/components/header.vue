@@ -149,7 +149,7 @@
     </div>
 </template>
 
-<style scope>
+<style scoped>
 .site-nav .site-nav-loading {
   background: url("//img.alicdn.com/tps/i3/T1b1m3XkVpXXXXXXXX-32-32.gif") no-repeat center;
 }
