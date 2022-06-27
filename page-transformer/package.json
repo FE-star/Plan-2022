@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "ssrdev": "node server.mjs",
+    "ssr": "env NODE_ENV=production node server.mjs",
     "build": "vite build",
     "buildssr": "vite build --outDir dist/server --ssr src/entry-server.js",
     "preview": "vite preview --port 4173",
