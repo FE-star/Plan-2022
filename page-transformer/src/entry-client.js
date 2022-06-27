@@ -4,7 +4,7 @@ const app = createApp({ page: [
     // 楼层1
     {
         title: '猜你喜欢',
-        // 用grid布局
+        // 用flex-grid布局
         type: 'flex-grid',
         // 2栏
         col: 2,
