@@ -9,6 +9,11 @@
 * （非SSR下）数据预先加载
 * 下拉加载更多
 
+### image lazyload
+
+* https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLImageElement/loading
+* https://caniuse.com/loading-lazy-attr
+
 ## Project Setup
 
 ```sh

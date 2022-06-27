@@ -8,7 +8,7 @@ export async function render(url, manifest) {
     {
         title: '猜你喜欢',
         // 用grid布局
-        type: 'grid',
+        type: 'flex-grid',
         // 2栏
         col: 2,
         // 数据源ID
