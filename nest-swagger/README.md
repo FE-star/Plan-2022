@@ -1,6 +1,6 @@
 # Nest-Swagger-Service
 
-> Nest Swaggar 演示服务，用于演示 OpenAPI
+> Nest Swaggar 演示服务，用于演示 OpenAPI，用Nest是为了较好的模拟Java生态
 
 ## Description
 
