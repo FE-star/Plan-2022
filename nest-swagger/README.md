@@ -2,10 +2,6 @@
 
 > Nest Swaggar 演示服务，用于演示 OpenAPI，用Nest是为了较好的模拟Java生态
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
@@ -38,16 +34,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## 浏览器地址
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+* 文档地址：http://localhost:3000/api
