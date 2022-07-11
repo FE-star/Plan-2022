@@ -1,0 +1,26 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""图标"""
+type Icon {
+  type: String!
+  bg_color: String!
+  border_color: String!
+  font_color: String!
+  text: String!
+  source: String!
+}
+
+"""商品"""
+type Offer {
+  nid: ID!
+  title: String!
+  pict_url: String!
+  icons: [Icon!]
+}
+
+type Query {
+  activity(id: String!): [Offer!]!
+  activitys(ids: [String!]!): [[Offer!]!]!
+}
