@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package activityservice;
+
+option go_package = "./proto;activityservice";
+
+service ActivityService {
+	rpc Call(ActivityRequest) returns (ActivityResponse) {}
+}
+
+message ActivityRequest {
+	string id = 1;
+}
+
+message ActivityResponse {
+	repeated Offer offer = 1;
+}
+
+message Offer {
+	string nid = 1;
+	string title = 2;
+	string pictUrl = 3;
+	repeated Icon icons = 4;
+}
+
+message Icon {
+	string type = 1;
+	string bgColor = 2;
+	string borderColor = 3;
+	string fontColor = 4;
+	string text = 5;
+	string source = 6;
+}
+
