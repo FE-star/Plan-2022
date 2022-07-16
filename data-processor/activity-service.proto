@@ -13,7 +13,8 @@ message ActivityRequest {
 }
 
 message ActivityResponse {
-	repeated Offer offer = 1;
+	string id = 1;
+	repeated Offer offer = 2;
 }
 
 message Offer {

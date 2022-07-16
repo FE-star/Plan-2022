@@ -1,35 +1,38 @@
-import { Controller, Get, Param, Inject } from '@nestjs/common';
+import { Controller, Get, Param, Inject, Query } from '@nestjs/common';
 import {
   ClientGrpc,
 } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { type } from 'os';
+import { off } from 'process';
+import { Observable, merge, of } from 'rxjs';
+import { reduce, catchError } from 'rxjs/operators';
+import { ActivityResponse, ActivityService, MultiActivity } from './interface/activity.interface'
 
-interface ActivityRequest {
-	id: string
+interface ResponseError {
+  code: number;
+  message: string;
+  // Activity ID
+  id: string;
 }
 
-interface ActivityResponse {
-	offer: Offer[]
+class GRPCResponseError implements ResponseError {
+  code: number;
+  message: string;
+  id: string;
+  constructor (code: number, message: string, id: string) {
+    this.code = code;
+    this.message = message; 
+    this.id = id
+  }
 }
 
-interface Offer {
-	nid: string
-	title: string
-	pict_url: string
-	icons: Icon[]
+interface MultiActivityResponse {
+  errors: ResponseError[];
+  data: MultiActivityData | ResponseError;
 }
 
-interface Icon {
-	type: string
-	bg_color: string
-	border_color: string
-	font_color: string
-	text: string
-	source: string
-}
-
-interface ActivityService {
-  Call(req: ActivityRequest): Observable<ActivityResponse>
+interface MultiActivityData {
+  [any: string]: ActivityResponse;
 }
 
 @Controller('activity')
@@ -42,12 +45,26 @@ export class AppController {
     this.service = this.client.getService<ActivityService>('ActivityService');
   }
 
-  @Get(':id')
-  get(@Param('id') id: string): Observable<ActivityResponse> {
-    const res = this.service.Call({ id });
-    res.subscribe(v => {
-      console.log(v)
+  @Get('query')
+  query(@Query() query: MultiActivity): Observable<MultiActivityResponse> {
+    const { activitys } = query
+    const obsList = activitys.map(id => {
+      let ret: Observable<ActivityResponse | ResponseError> = this.service.Call({ id })
+        .pipe(catchError(err => {
+          return of(new GRPCResponseError(5000, `GRPC Service Error when request activity ${id}`, id))
+        }))
+      return ret
     })
-    return res
+    const obs = merge(...obsList)
+
+    const res = {
+      errors: [],
+      data: {}
+    }
+
+    return obs.pipe(reduce((acc, item, i) => { 
+      acc.data[item.id] = item
+      return acc
+    }, res))
   }
 }
