@@ -1,9 +1,7 @@
-import { Controller, Get, Param, Inject, Query } from '@nestjs/common';
+import { Controller, Get, Inject, Query } from '@nestjs/common';
 import {
   ClientGrpc,
 } from '@nestjs/microservices';
-import { type } from 'os';
-import { off } from 'process';
 import { Observable, merge, of } from 'rxjs';
 import { reduce, catchError } from 'rxjs/operators';
 import { ActivityResponse, ActivityService, MultiActivity } from './interface/activity.interface'
@@ -16,14 +14,7 @@ interface ResponseError {
 }
 
 class GRPCResponseError implements ResponseError {
-  code: number;
-  message: string;
-  id: string;
-  constructor (code: number, message: string, id: string) {
-    this.code = code;
-    this.message = message; 
-    this.id = id
-  }
+  constructor (public code: number, public message: string, public id: string) {}
 }
 
 interface MultiActivityResponse {
