@@ -1,0 +1,19 @@
+{
+  "name": "element-factory",
+  "version": "0.0.1",
+  "description": "combine element to a component",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.1",
+    "vite": "^3.0.3",
+    "vue": "^3.2.37"
+  }
+}

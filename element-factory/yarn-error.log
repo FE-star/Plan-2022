@@ -1,0 +1,46 @@
+Arguments: 
+  /Users/yangwenjian/.nvm/versions/node/v16.15.0/bin/node /Users/yangwenjian/.nvm/versions/node/v16.15.0/bin/yarn add compiler-sfc
+
+PATH: 
+  /Users/yangwenjian/go/bin:/Users/yangwenjian/.bun/bin:/Users/yangwenjian/.cargo/bin:/Users/yangwenjian/.nvm/versions/node/v16.15.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/yangwenjian/Library/Caches/.wasm-pack/wasm-bindgen-cargo-install-0.2.81/bin
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.15.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/compiler-sfc: Not found
+      at Request.params.callback [as _callback] (/Users/yangwenjian/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:66138:18)
+      at Request.self.callback (/Users/yangwenjian/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:140883:22)
+      at Request.emit (node:events:527:28)
+      at Request.<anonymous> (/Users/yangwenjian/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:141855:10)
+      at Request.emit (node:events:527:28)
+      at IncomingMessage.<anonymous> (/Users/yangwenjian/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:141777:12)
+      at Object.onceWrapper (node:events:641:28)
+      at IncomingMessage.emit (node:events:539:35)
+      at endReadableNT (node:internal/streams/readable:1345:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "element-factory",
+    "version": "0.0.1",
+    "description": "combine element to a component",
+    "main": "index.js",
+    "scripts": {
+      "test": "jest"
+    },
+    "author": "",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
