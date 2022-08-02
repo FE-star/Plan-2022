@@ -1,17 +1,12 @@
-<Card :link="click_url">
-    <template #image>
-        <RectPic :value="pict_url" />
-        <!-- <CirclePic :value="pict_url" /> -->
+<List layout="2">
+    <!-- 注入到 default，并拿到slot里面的click_url, pict_url, title, icons, real_wap_price -->
+    <template #default="{click_url, pict_url, title, icons, real_wap_price}">
+        <Tpl_card 
+            :click_url="click_url"
+            :pict_url="pict_url"
+            :title="title"
+            :icons="icons"
+            :real_wap_price="real_wap_price"
+        ></Tpl_card>
     </template>
-    <template #title>
-        <Title :msg="title" />
-    </template>
-    <template #under-title>
-        <Tags :tags="icons" />
-    </template>
-    <template #price>
-        <Price :value="real_wap_price" />
-        <!-- <DeletePrice :value="real_wap_price" /> -->
-        <!-- <MonthSell :value="month_sale" /> -->
-    </template>
-</Card>
+</List>

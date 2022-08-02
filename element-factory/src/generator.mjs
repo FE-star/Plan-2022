@@ -30,6 +30,7 @@ export default class Generator {
         this.ast = ast
         this.options = options
         this.depencencies = []
+        this.props = []
         this.visit(this.ast)
         console.log('depencencies === ', this.depencencies)
     }
@@ -38,6 +39,15 @@ export default class Generator {
         if (this.depencencies.indexOf(name) < 0) {
             this.depencencies.push(name)
         }
+    }
+
+    expression(exp) {
+        const { content } = exp
+        if (this.props.indexOf(content) < 0) {
+            this.props.push(exp.content)
+            console.log(this.props)
+        }
+        // TODO: this should parse the expression
     }
 
     visit(parent) {
@@ -63,7 +73,13 @@ export default class Generator {
 
     buildScript() {
         const code = new Code
-        const resolve = this.options.resolve || ((elementName) => { return `./elements/${toHyphenCase(elementName)}.vue` })
+        const resolve = this.options.resolve || ((elementName) => { 
+            if (elementName.indexOf('Tpl_') > -1) {
+                return `./${elementName.slice(4)}.tpl`
+            } else {
+                return `./elements/${toHyphenCase(elementName)}.vue`
+            }
+        })
         this.depencencies.forEach(dep => {
             code.addLine(`import ${dep} from '${resolve(dep)}'`)
         })
