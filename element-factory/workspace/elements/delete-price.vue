@@ -29,6 +29,6 @@ const props = defineProps({
 })
 </script>
 <template>
-    <span class="price-delete-value"><em>¥</em>{{props.value * 1.2}}</span>
+    <span class="price-delete-value"><em>¥</em>{{(props.value * 1.2).toFixed(2)}}</span>
     <span class="price-value"><em>¥</em>{{props.value}}</span>
 </template>

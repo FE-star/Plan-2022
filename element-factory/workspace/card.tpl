@@ -1,7 +1,7 @@
 <Card :link="click_url">
     <template #image>
-        <RectPic :value="pict_url" />
-        <!-- <CirclePic :value="pict_url" /> -->
+        <!-- <RectPic :value="pict_url" /> -->
+        <CirclePic :value="pict_url" />
     </template>
     <template #title>
         <Title :msg="title" />
