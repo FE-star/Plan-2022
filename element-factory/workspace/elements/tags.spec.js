@@ -4,7 +4,7 @@ import { expect, describe, test } from 'vitest'
 import { getByText } from '@testing-library/dom'
 import Tags from './tags.vue'
 
-test('render pic', async () => {
+test('render tags', async () => {
     const tags = data.data.result[0].icons
 
     const wrapper = mount(Tags, {
