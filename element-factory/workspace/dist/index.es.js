@@ -1,12 +1,39 @@
-import { openBlock, createElementBlock, createElementVNode, renderSlot, createTextVNode, toDisplayString, Fragment, renderList, normalizeStyle, createBlock, withCtx, createVNode } from "vue";
+import { openBlock, createElementBlock, normalizeClass, Fragment, renderList, renderSlot, normalizeProps, guardReactiveProps, createElementVNode, createTextVNode, toDisplayString, normalizeStyle, createBlock, withCtx, createVNode, unref } from "vue";
+var list_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1$4 = ["data-layout"];
+const _sfc_main$5 = {
+  __name: "list",
+  props: {
+    result: Array,
+    layout: String
+  },
+  setup(__props) {
+    const props = __props;
+    const classObject = {
+      "card-container": true,
+      "col2": props.layout === "2",
+      "col3": props.layout === "3"
+    };
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", {
+        "data-layout": __props.layout,
+        class: normalizeClass(classObject)
+      }, [
+        (openBlock(true), createElementBlock(Fragment, null, renderList(props.result, (item) => {
+          return renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps(item)));
+        }), 256))
+      ], 8, _hoisted_1$4);
+    };
+  }
+};
 var card_vue_vue_type_style_index_0_scope_true_lang = "";
 const _hoisted_1$3 = {
   class: "card-item",
   role: "listitem"
 };
 const _hoisted_2$2 = ["href"];
-const _hoisted_3 = { class: "img-wrapper" };
-const _hoisted_4 = /* @__PURE__ */ createTextVNode("image slot");
+const _hoisted_3$1 = { class: "img-wrapper" };
+const _hoisted_4$1 = /* @__PURE__ */ createTextVNode("image slot");
 const _hoisted_5 = { class: "info-wrapper" };
 const _hoisted_6 = { class: "title" };
 const _hoisted_7 = /* @__PURE__ */ createTextVNode("title slot");
@@ -27,9 +54,9 @@ const _sfc_main$4 = {
           target: "_blank",
           class: "item-link"
         }, [
-          createElementVNode("div", _hoisted_3, [
+          createElementVNode("div", _hoisted_3$1, [
             renderSlot(_ctx.$slots, "image", {}, () => [
-              _hoisted_4
+              _hoisted_4$1
             ])
           ]),
           createElementVNode("div", _hoisted_5, [
@@ -54,7 +81,7 @@ const _sfc_main$4 = {
     };
   }
 };
-var rectPic_vue_vue_type_style_index_0_scoped_15225c77_lang = "";
+var circlePic_vue_vue_type_style_index_0_scoped_b6187e30_lang = "";
 var _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -65,7 +92,7 @@ var _export_sfc = (sfc, props) => {
 const _hoisted_1$2 = { class: "img-container" };
 const _hoisted_2$1 = ["src"];
 const _sfc_main$3 = {
-  __name: "rect-pic",
+  __name: "circle-pic",
   props: {
     value: String
   },
@@ -80,7 +107,7 @@ const _sfc_main$3 = {
     };
   }
 };
-var RectPic = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-15225c77"]]);
+var CirclePic = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-b6187e30"]]);
 var title_vue_vue_type_style_index_0_scoped_c9d794a6_lang = "";
 const _sfc_main$2 = {
   __name: "title",
@@ -121,36 +148,44 @@ const _sfc_main$1 = {
   }
 };
 var Tags = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-af5c5eb3"]]);
-var price_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1 = { class: "price-value" };
+var deletePrice_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1 = { class: "price-delete-value" };
 const _hoisted_2 = /* @__PURE__ */ createElementVNode("em", null, "\xA5", -1);
+const _hoisted_3 = { class: "price-value" };
+const _hoisted_4 = /* @__PURE__ */ createElementVNode("em", null, "\xA5", -1);
 const _sfc_main = {
-  __name: "price",
+  __name: "delete-price",
   props: {
     value: String
   },
   setup(__props) {
     const props = __props;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("span", _hoisted_1, [
-        _hoisted_2,
-        createTextVNode(toDisplayString(props.value), 1)
-      ]);
+      return openBlock(), createElementBlock(Fragment, null, [
+        createElementVNode("span", _hoisted_1, [
+          _hoisted_2,
+          createTextVNode(toDisplayString((props.value * 1.2).toFixed(2)), 1)
+        ]),
+        createElementVNode("span", _hoisted_3, [
+          _hoisted_4,
+          createTextVNode(toDisplayString(props.value), 1)
+        ])
+      ], 64);
     };
   }
 };
-const __default__ = {
+const __default__$1 = {
   data: (el) => {
     console.log("data === ", el.$attrs);
     return el.$attrs;
   }
 };
-var app = /* @__PURE__ */ Object.assign(__default__, {
+var Tpl_card = /* @__PURE__ */ Object.assign(__default__$1, {
   setup(__props) {
     return (_ctx, _cache) => {
       return openBlock(), createBlock(_sfc_main$4, { link: _ctx.click_url }, {
         image: withCtx(() => [
-          createVNode(RectPic, { value: _ctx.pict_url }, null, 8, ["value"])
+          createVNode(CirclePic, { value: _ctx.pict_url }, null, 8, ["value"])
         ]),
         title: withCtx(() => [
           createVNode(Title, { msg: _ctx.title }, null, 8, ["msg"])
@@ -163,6 +198,31 @@ var app = /* @__PURE__ */ Object.assign(__default__, {
         ]),
         _: 1
       }, 8, ["link"]);
+    };
+  }
+});
+const __default__ = {
+  data: (el) => {
+    console.log("data === ", el.$attrs);
+    return el.$attrs;
+  }
+};
+var app = /* @__PURE__ */ Object.assign(__default__, {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createBlock(_sfc_main$5, { layout: "3" }, {
+        default: withCtx(({ click_url, pict_url, title, icons, real_wap_price, month_sale }) => [
+          createVNode(unref(Tpl_card), {
+            click_url,
+            pict_url,
+            title,
+            icons,
+            real_wap_price,
+            month_sale
+          }, null, 8, ["click_url", "pict_url", "title", "icons", "real_wap_price", "month_sale"])
+        ]),
+        _: 1
+      });
     };
   }
 });
