@@ -2,7 +2,7 @@
   "name": "element-factory",
   "version": "0.0.1",
   "description": "combine element to a component",
-  "main": "index.js",
+  "main": "./src/index",
   "scripts": {
     "test": "vitest"
   },

@@ -1,4 +1,4 @@
-import { parse, compileScript } from '@vue/compiler-sfc'
+import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import Generator from './generator.mjs'
 
 export default (code, options = {}) => {
@@ -28,6 +28,5 @@ ${code}
     })
 
     console.log(ret.content)
-
     return ret.content
 }
