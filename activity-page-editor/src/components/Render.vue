@@ -29,7 +29,7 @@ export default {
     },
     mounted: function () {
         let js = factory(this.schema)
-            .replace(/\"vue\"/g, '"/node_modules/.vite/deps/vue.js?v=d9f7925a"')
+            .replace(/\"vue\"/g, '"/node_modules/.vite/deps/vue.js"')
         // TODO：找了2个小时，没找到更优化的办法办法～
         js += `;\n window.__render__(__default__)`
         const script = document.createElement('script')
