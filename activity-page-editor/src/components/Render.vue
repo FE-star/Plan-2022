@@ -36,7 +36,6 @@ export default {
         script.type = 'module'
         script.innerHTML = js
         window.__render__ = (Component) => {
-            console.log(Component)
             this.$.components.Current = Component
             this.current = 'Current'
         }
