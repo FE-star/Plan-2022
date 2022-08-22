@@ -27,19 +27,30 @@ export default {
     components: {
         Blank
     },
-    mounted: function () {
-        let js = factory(this.schema)
-            .replace(/\"vue\"/g, '"/node_modules/.vite/deps/vue.js"')
-        // TODO：找了2个小时，没找到更优化的办法办法～
-        js += `;\n window.__render__(__default__)`
-        const script = document.createElement('script')
-        script.type = 'module'
-        script.innerHTML = js
-        window.__render__ = (Component) => {
-            this.$.components.Current = Component
-            this.current = 'Current'
+    watch: {
+        schema: {
+            handler(value) {
+                if (this.script) {
+                    document.body.removeChild(this.script)
+                    this.script = null
+                    this.current = 'Blank'
+                }
+
+                let js = factory(value)
+                    .replace(/\"vue\"/g, '"/node_modules/.vite/deps/vue.js"')
+                // TODO：找了2个小时，没找到更优化的办法办法～
+                js += `;\n window.__render__(__default__)`
+                const script = this.script = document.createElement('script')
+                script.type = 'module'
+                script.innerHTML = js
+                window.__render__ = (Component) => {
+                    this.$.components.Current = Component
+                    this.current = 'Current'
+                }
+                document.body.appendChild(script) 
+            },
+            immediate: true
         }
-        document.body.appendChild(script) 
     }
 }
 </script>
