@@ -5,9 +5,14 @@
     margin: auto;
 }
 .card-container.col3 {
-    width: 1190px;
+    width: 1210px;
     padding: 0 19px;
     margin: auto;
+}
+.card-container:after {
+    content: "";
+    display: block;
+    clear: both;
 }
 </style>
 

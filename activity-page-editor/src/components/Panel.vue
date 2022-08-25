@@ -3,7 +3,7 @@
     background-color: #fff;
     width: 300px;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     color: #000;

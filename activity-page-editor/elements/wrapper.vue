@@ -11,6 +11,7 @@
 </style>
 
 <script setup>
+// 用这个玩意本质上是因为按照inlineTemplate方式构建directive不能正确构建
 const props = defineProps({
     id: String
 })

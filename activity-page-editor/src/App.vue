@@ -1,69 +1,24 @@
+<style>
+.new-button {
+  font-size: 80px;
+  background-color: blueviolet;
+}
+</style>
+
 <script setup>
 import { sfc } from 'element-factory'
 import Render from './components/Render.vue'
 import Panel from './components/Panel.vue'
-import schema from './schemas/card.mjs'
+// import schema from './schemas/card.mjs'
+import list from './schemas/list.mjs'
 import data from './data.mjs'
 import { onMounted, ref } from 'vue'
+import { parse, idMap } from './utils.mjs'
 
-let uuid = 0
-let idMap = new Map
 const currentComponent = ref(null)
+const schema = [JSON.parse(JSON.stringify(list))]
 
-function translateProps(props = {}) {
-  const res = Object.keys(props).map(key => {
-    if (props[key] !== '') {
-      return `${key}="${props[key]}"`
-    } else {
-      return `${key}`
-    }
-  }).join(' ')
-  if (res) return ` ${res}`
-  return ''
-}
-
-function createElement(name) {
-  return `${name}`
-}
-
-function parse(json, ignores, noWrapper) {
-  let res = ''
-  switch (json.type) {
-    case 'Element':
-      res += `<${createElement(json.name)}${translateProps(json.props)}>
-  ${
-    json.children ? 
-      json.children.map(v => parse(v, ignores, noWrapper))
-        .reduce((a, b) => a + b, '') : 
-      ''
-  }
-</${json.name}>`
-      if (/^[A-Z]/.test(json.name) && ignores.indexOf(json.name) < 0) {
-        // set id
-        if (!json.id) {
-          json.id = ++uuid + ''
-          idMap.set(json.id, json)
-        }
-        if (!noWrapper) {
-          res = `<Wrapper id=${json.id}>${res}</Wrapper>`
-        }
-      }
-      break;
-    case 'Template':
-      res += `<template ${json.name ? `#${json.name}` : ''}>
-  ${
-    json.children ? 
-      json.children.map(v => parse(v, ignores, noWrapper))
-        .reduce((a, b) => a + b, '') : 
-      ''
-  }      
-</template>`
-      break;
-  }
-  return res
-}
-
-let xml = ref(parse(schema, ['Card']))
+let xml = ref(schema.map(ss => parse(ss, ['List'])))
 
 onMounted(() => {
   document.body.addEventListener('schema-change', (e) => {
@@ -83,7 +38,29 @@ function onchange(keys, value) {
   if (keys === 'name') {
     res.props = {}
   }
-  xml.value = parse(schema, ['Card'])
+  xml.value = schema.map(ss => parse(ss, ['List']))
+}
+
+function find(schema, type, cb) {
+  (schema.children || []).forEach(v => {
+    if (v.type === type) cb(v)
+    find(v, type, cb)
+  })
+}
+
+let _id = 0
+
+function onAdd() {
+  const layout = window.prompt('layout是多少？')
+  const newList = JSON.parse(JSON.stringify(list))
+  newList.props = {
+    layout
+  }
+  find(newList, 'Tpl', (v) => {
+    v.name = `Card${++_id}`
+  })
+  schema.push(newList)
+  xml.value = schema.map(ss => parse(ss, ['List']))
 }
 
 function createCode(xml) {
@@ -101,8 +78,15 @@ function createCode(xml) {
 </script>
 
 <template>
-  <button @click="createCode(parse(schema, [], true))">出码</button>
-  <Render :schema="xml" :data="data.data.result[0]"></Render>
+  <!-- <button @click="createCode(parse(schema, [], true))">出码</button> -->
+  <!-- <Render :schema="xml" :data="data.data.result[0]"></Render> -->
+  <!-- <Render :schema="xml" :data="data.data"></Render> -->
+  <div v-for="(x, i) in xml" :key="i">
+    <Render :schema="x" :name="i" :data="data.data" />
+  </div>
+  <div class="new-button" @click="onAdd">
+    添加List
+  </div>
   <Panel :data="currentComponent" @change="onchange"></Panel>
 </template>
 

@@ -81,7 +81,15 @@ export default class Generator {
             }
         })
         this.depencencies.forEach(dep => {
-            code.addLine(`import ${dep} from '${resolve(dep)}'`)
+            if (this.options.browser) {
+                if (dep.indexOf('Tpl_') > -1) {
+                    code.addLine(`const ${dep} = window.__${dep}__`)
+                } else {
+                    code.addLine(`import ${dep} from '${resolve(dep)}'`)
+                }
+            } else {
+                code.addLine(`import ${dep} from '${resolve(dep)}'`)
+            }
         })
 
         return code.toString()

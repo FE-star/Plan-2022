@@ -3,17 +3,15 @@ import Generator from './generator.mjs'
 
 export function sfc(code, options = {}) {
     const parsed = parse(`<template>${code}</template>`)
-    // console.log(parsed)
     const ast = parsed.descriptor.template.ast
     const generator = new Generator(ast, options)
-    return `
-<script setup>
+    return `<script setup>
 ${generator.buildScript()}
 </script>  
 <script>
 export default {
     data: (el) => {
-        console.log('data === ', el.$attrs)
+        // console.log('data === ', el.$attrs)
         return el.$attrs
     }
 }
@@ -29,7 +27,5 @@ export default (code, options = {}) => {
         id: 'abc',
         inlineTemplate: true
     })
-
-    console.log(ret.content)
     return ret.content
 }

@@ -16,7 +16,7 @@
 </style>
 
 <script>
-import Normal from './cards/normal.vue'
+// import Normal from './cards/normal.vue'
 
 export default {
     props: {
