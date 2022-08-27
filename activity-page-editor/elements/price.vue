@@ -3,6 +3,7 @@
   display: inline-block;
   font-size: 22px;
   line-height: 22px;
+  color: #ff5000;
 }
 .price-value em {
   margin-right: 4px;

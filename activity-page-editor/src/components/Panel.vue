@@ -7,6 +7,16 @@
     top: 0;
     right: 0;
     color: #000;
+    border: 1px solid #eee;
+    border-top: 0;
+    border-bottom: 0;
+    padding: 12px;
+}
+.btn-close {
+    cursor: pointer;
+    float: right;
+    z-index: 1;
+    color: #1890ff;
 }
 </style>
 
@@ -59,6 +69,9 @@ export default {
         data: {
             type: Object,
             default: {}
+        },
+        close: {
+            type: Function
         }
     },
     data(vm) {
@@ -87,23 +100,26 @@ export default {
 </script>
 
 <template>
-<div class="panel-container" v-if="data">
-    <p>组件选择</p>
-    <div>
-        <select v-model="data.name" @change="$emit('change', 'name', $event.target.value)">
-            <option v-for="value in components" :value="value">{{value}}</option>
-        </select>
-    </div>
-    <p>属性列表：</p>
-    <div v-for="item in props">
-        <div v-if="item.key.indexOf(':') === 0">
-            {{ (item.label || item.key.slice(1)) + ': ' }} <select v-model="item.value" @change="$emit('change', `props.${item.key}`, $event.target.value)">
-                <option v-for="value in keys" :value="value">{{value}}</option>
+    <div class="panel-container" v-if="data">
+        <a class="btn-close" @click="close">关闭</a>
+        <p>组件选择</p>
+        <div>
+            <select v-model="data.name" @change="$emit('change', 'name', $event.target.value)">
+                <option v-for="value in components" :value="value">{{ value }}</option>
             </select>
         </div>
-        <div v-else>
-            {{ (item.label || item.key) + ': ' }} <input v-model="item.value" @change="$emit('change', `props.${item.key}`, $event.target.value)" />
-        </div>    
+        <p>属性列表：</p>
+        <div v-for="item in props">
+            <div v-if="item.key.indexOf(':') === 0">
+                {{ (item.label || item.key.slice(1)) + ': ' }} <select v-model="item.value"
+                    @change="$emit('change', `props.${item.key}`, $event.target.value)">
+                    <option v-for="value in keys" :value="value">{{ value }}</option>
+                </select>
+            </div>
+            <div v-else>
+                {{ (item.label || item.key) + ': ' }} <input v-model="item.value"
+                    @change="$emit('change', `props.${item.key}`, $event.target.value)" />
+            </div>
+        </div>
     </div>
-</div>
 </template>

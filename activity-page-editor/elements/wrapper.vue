@@ -5,8 +5,8 @@
     clear: both;
 }
 .wrapper:hover {
-    outline: 1px solid red;
-    opacity: 0.2
+    /* outline: 1px solid red; */
+    opacity: 0.6
 }
 </style>
 

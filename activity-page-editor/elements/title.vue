@@ -4,7 +4,7 @@
         font-size: 16px;
         line-height: 23px;
         margin: 0;
-        width: 200px;
+        width: 186px;
     }
     p:active {
         color: red;
