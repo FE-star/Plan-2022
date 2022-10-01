@@ -1,6 +1,10 @@
 # spa
 
-This template should help get you started developing with Vue 3 in Vite.
+SPA 项目
+
+## 你不是说不用ts吗？
+
+用 ts 的原因是这里 API 会比较复杂，所以引入 ts 约束 API
 
 ## Recommended IDE Setup
 
