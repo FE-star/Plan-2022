@@ -1,5 +1,5 @@
 import ErrorView from '../views/ErrorView.vue'
-import { type RouteComponent, type RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 import { BuiltIn, BuildInComponentMap } from './builtin'
 import type { SchameRouter } from './schema'
 
