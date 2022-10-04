@@ -1,5 +1,5 @@
 import ErrorView from '../views/ErrorView.vue'
-import type { RouteComponent, RouteRecordRaw } from 'vue-router'
+import { type RouteComponent, type RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 import { BuiltIn, BuildInComponentMap } from './builtin'
 import type { SchameRouter } from './schema'
 
@@ -13,6 +13,8 @@ const loaders: Loader[] = []
 export function register(loader: Loader) {
     loaders.push(loader)
 }
+// @ts-ignore
+window.registerLoader = register
 
 function isInstance<T extends object>(value: string | number, type: T): type is T {
     return Object.values(type).includes(value)
@@ -32,7 +34,7 @@ export function getComponent(name: string | BuiltIn): Promise<RouteComponent> | 
             return true
         })
         if (matchLoader) {
-            Component = matchLoader.load(name)
+            Component = wrapper(matchLoader.load(name))
         }
     }
     if (!Component) {
@@ -42,11 +44,11 @@ export function getComponent(name: string | BuiltIn): Promise<RouteComponent> | 
 }
 
 export function buildRouters(schema: SchameRouter[]): RouteRecordRaw[]  {
-    return schema.map(router => {
+    return schema.map(r => {
         return {
-            path: router.path,
-            name: router.name,
-            component: getComponent(router.component)
+            path: r.path,
+            name: r.name,
+            component: getComponent(r.component)
         }
     })
 }
@@ -77,6 +79,6 @@ register({
         return name.indexOf('vue:') === 0
     },
     load(name) {
-        return wrapper(() => import(`../views/${name.substring(4)}.vue`))
+        return () => import(`../views/${name.substring(4)}.vue`)
     }
 })
