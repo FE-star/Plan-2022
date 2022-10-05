@@ -3,6 +3,7 @@ import { BuiltIn } from './builtin'
 export interface SchameRouter {
     path: string,
     name: string,
+    label: string,
     component: string | BuiltIn
 }
 
@@ -16,19 +17,7 @@ export default [
     {
         path: '/',
         name: 'home',
+        label: 'Home',
         component: BuiltIn.HOME
-    },
-    {
-        path: '/about',
-        name: 'about',
-        component: 'vue:AboutView'
-    },
-    /**
-     * 不存在的页面
-     */
-    {
-        path: '/noexist',
-        name: 'noexist',
-        component: 'vue:noexist'
     }
 ]

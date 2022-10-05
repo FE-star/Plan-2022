@@ -1,0 +1,14 @@
+[
+    {
+        "path": "/about",
+        "name": "about",
+        "label": "About",
+        "component": "vue.es:About"
+    },
+    {
+        "path": "/noexist",
+        "name": "noexist",
+        "label": "不存在",
+        "component": "vue:noexist"
+    }
+]

@@ -1,20 +1,21 @@
 <script setup lang="ts">
+import { ref, type Ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { getSchema, type SchemaRouter } from './router'
+const menus: Ref<SchemaRouter[]>  = ref([])
+const { pathname } = location
+getSchema().then((schema) => {
+  menus.value.push(...schema)
+})
 </script>
 
 <template>
   <el-container class="app-container">
     <el-aside width="200px">
       <el-scrollbar>
-        <el-menu default-active="1">
-          <el-menu-item index="1">
-              <RouterLink to="/">Home</RouterLink>
-          </el-menu-item>
-          <el-menu-item index="2">
-            <RouterLink to="/about">About</RouterLink>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <RouterLink to="/noexist">noexist</RouterLink>
+        <el-menu :default-active="pathname">
+          <el-menu-item v-for="menu in menus" :index="menu.path">
+            <RouterLink :to="menu.path">{{menu.label}}</RouterLink>
           </el-menu-item>
         </el-menu>
       </el-scrollbar>
