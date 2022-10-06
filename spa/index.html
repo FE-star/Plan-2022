@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,6 +9,106 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      function load(name, url) {
+        if (window[name]) {
+          return Promise.resolve(window[name])
+        } else {
+          return new Promise((resolve, reject) => {
+            const script = document.createElement('script')
+            script.src = url
+            script.onload = function () {
+              if (window[name]) {
+                resolve(window[name])
+              } else {
+                reject(new Error(`no module ${name}`))
+              }
+            }
+            document.body.append(script)
+          })
+        }
+      }
+      // @ts-ignore
+      window.SPA = {
+        loaders: [{
+            is(name) {
+                return name.indexOf('vue:') === 0
+            },
+            load(name) {
+                return () => import(`/src/views/${name.substring(4)}.vue`)
+            }
+        }, {
+          is(name) {
+              return name.indexOf('vue.es:') === 0
+          },
+          load(name) {
+              return () => {
+                  const link = document.createElement('link')
+                  const componentName = name.substring(7)
+                  link.rel= 'stylesheet'
+                  link.href = `/materials/${componentName}/dist/style.css`
+                  const head = document.getElementsByTagName('head')
+                  if (head) head[0].appendChild(link)
+                  return import(`/materials/${componentName}/dist/index.es.js`)
+              }
+          }
+        }, {
+          is(name) {
+            return name.indexOf('react.umd:') === 0
+          },
+          load(name) {
+            return () => {
+              const componentName = name.substring(10)
+
+              return Promise.all([
+                  load('React', 'https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.development.js'), 
+                  load('ReactDOM', 'https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js')
+                ]).then(([React, ReactDOM]) => {
+                    return {
+                      mounted() {
+                        const el = this.$el
+                        const div = document.createElement('div')
+                        const link = document.createElement('link')
+                        this.$link = link
+                        link.rel= 'stylesheet'
+                        link.href = `http://localhost:8080/materials/${componentName}/dist/style.css`
+                        const head = document.getElementsByTagName('head')
+                        if (head) head[0].appendChild(link)
+                        if (el.parentNode.children.length > 0) {
+                          el.parentNode.children[0].style = 'display: block';
+                          return
+                        }
+                        el.parentNode.appendChild(div)
+                        load(componentName, `http://localhost:8080/materials/${componentName}/dist/index.umd.js`)
+                          .then(App => {
+                            // @ts-ignore
+                            ReactDOM.createRoot(div).render(
+                              // @ts-ignore
+                              React.createElement(App)
+                            )
+                          })
+                      },
+                      beforeUnmount() {
+                        const el = this.$el
+                        const link = this.$link
+                        if (el.parentNode.children.length > 0) {
+                          el.parentNode.children[0].style = 'display: none';
+                        } 
+                        if (link) {
+                          link.parentNode.removeChild(link)
+                        }
+                      },
+                      render() {
+                        return null
+                      }
+                    }
+                  })
+            }
+          }
+        }],
+        schema: fetch('/schema.json').then(response => response.json())
+      }
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

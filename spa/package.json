@@ -6,7 +6,8 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "vue-tsc --noEmit",
+    "server": "http-server --cors -c-1"
   },
   "dependencies": {
     "vue": "^3.2.38",

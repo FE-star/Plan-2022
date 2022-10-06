@@ -6,6 +6,13 @@
         "component": "vue.es:About"
     },
     {
+        "path": "/hello",
+        "name": "Hello",
+        "label": "React Hello",
+        "component": "react.umd:Hello"
+        
+    },
+    {
         "path": "/noexist",
         "name": "noexist",
         "label": "不存在",

@@ -3,7 +3,7 @@ import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 import { BuiltIn, BuildInComponentMap } from './builtin'
 import type { SchameRouter } from './schema'
 
-interface Loader {
+export interface Loader {
     is: (name: string) => boolean
     load: (name: string) => () => Promise<RouteComponent>
 }
@@ -74,29 +74,6 @@ const wrapper = (fn: () => Promise<RouteComponent>) => {
     }
 }
 
-register({
-    is(name) {
-        return name.indexOf('vue:') === 0
-    },
-    load(name) {
-        return () => import(`../views/${name.substring(4)}.vue`)
-    }
-})
-
-register({
-    is(name) {
-        return name.indexOf('vue.es:') === 0
-    },
-    load(name) {
-        return () => {
-            // <link href="https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.17/index.css" rel="stylesheet">
-            const link = document.createElement('link')
-            const componentName = name.substring(7)
-            link.rel= 'stylesheet'
-            link.href = `/materials/${componentName}/dist/style.css`
-            const head = document.getElementsByTagName('head')
-            if (head) head[0].appendChild(link)
-            return import(/* @vite-ignore */ `/materials/${componentName}/dist/index.es.js`)
-        }
-    }
+window.SPA?.loaders?.forEach((loader: Loader) => {
+    register(loader)
 })
