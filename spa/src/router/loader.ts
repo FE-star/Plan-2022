@@ -13,8 +13,10 @@ const loaders: Loader[] = []
 export function register(loader: Loader) {
     loaders.push(loader)
 }
-// @ts-ignore
-window.registerLoader = register
+
+window.SPA?.loaders?.forEach((loader: Loader) => {
+    register(loader)
+})
 
 function isInstance<T extends object>(value: string | number, type: T): type is T {
     return Object.values(type).includes(value)
@@ -73,7 +75,3 @@ const wrapper = (fn: () => Promise<RouteComponent>) => {
         return res
     }
 }
-
-window.SPA?.loaders?.forEach((loader: Loader) => {
-    register(loader)
-})

@@ -35,7 +35,6 @@ export const getSchema = (): Promise<SchameRouter[]> => {
     hasLoad = true
     const p: Promise<SchameRouter[]> | undefined = window.SPA?.schema
     if (p) {
-      console.log('asdfasdf')
       p.then(prepareSchema)
         .then(done)
     } else {
@@ -54,6 +53,7 @@ export const getSchema = (): Promise<SchameRouter[]> => {
   }
 }
 
+// router/index.ts
 export default () => {
   return getSchema()
     .then((schema: SchameRouter[]): Router => {
