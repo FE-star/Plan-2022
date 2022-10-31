@@ -38,11 +38,31 @@ function anaArr(arr, schema) {
   Object.assign(schema, {
     type: 'Array',
   })
-  const objSchema = {}
+  const itemSchema = {}
   arr.forEach(obj => {
-    anaObj(obj, objSchema)
+    const type = /^\[object\s(\w+)\]$/.exec(Object.prototype.toString.call(obj))[1]
+    switch (type) {
+      case 'String':
+        if (!itemSchema.type) itemSchema.type = 'String'
+        if (itemSchema.type !== 'String') throw new Error(`array item's type must be wrong!`)
+        break
+      case 'Number':
+        if (!itemSchema.type) itemSchema.type = 'Number'
+        if (itemSchema.type !== 'Number') throw new Error(`array item's type must be wrong!`)
+        break
+      case 'Object':
+        if (!itemSchema.type) itemSchema.type = 'Object'
+        if (itemSchema.type !== 'Object') throw new Error(`array item's type must be wrong!`)
+        anaObj(obj, itemSchema)
+        break
+      case 'Array':
+        if (!itemSchema.type) itemSchema.type = 'Array'
+        if (itemSchema.type !== 'Array') throw new Error(`array item's type must be wrong!`)
+        anaArr(obj, itemSchema)
+        break
+    }
   })
-  schema.inst = objSchema.props
+  schema.inst = itemSchema
 }
 
 function anaObj(obj, schema) {
@@ -52,22 +72,34 @@ function anaObj(obj, schema) {
     const type = /^\[object\s(\w+)\]$/.exec(Object.prototype.toString.call(obj[key]))[1]
     switch (type) {
       case 'String':
+        if (schema.props[key] && schema.props[key].type !== 'String') {
+          throw new Error(`prop ${key}'s type must be wrong!`)
+        }
         schema.props[key] = {
           type: 'String'
         }
         break
       case 'Array':
+        if (schema.props[key] && schema.props[key].type !== 'Array') {
+          throw new Error(`prop ${key}'s type must be wrong!`)
+        }
         const aschema = {}
         schema.props[key] = aschema
         anaArr(obj[key], aschema)
         break
       case 'Object':
+        if (schema.props[key] && schema.props[key].type !== 'Object') {
+          throw new Error(`prop ${key}'s type must be wrong!`)
+        }
         const nschema = {}
         schema.props[key] = nschema
         anaObj(obj[key], nschema)
         break
       case 'Number':
-      schema.props[key] = {
+        if (schema.props[key] && schema.props[key].type !== 'Number') {
+          throw new Error(`prop ${key}'s type must be wrong!`)
+        }
+        schema.props[key] = {
           type: 'Number'
         }
         break

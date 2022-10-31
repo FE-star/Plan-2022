@@ -5,10 +5,10 @@ const props = defineProps(['schema', 'result'])
 const defines = computed(() => {
     const res = []
     if (props.schema) {
-        for (let key in props.schema.props.list.inst) {
+        for (let key in props.schema.props.list.inst.props) {
             res.push(Object.assign({
                 key
-            }, props.schema.props.list.inst[key]))
+            }, props.schema.props.list.inst.props[key]))
         }
 
         return res
