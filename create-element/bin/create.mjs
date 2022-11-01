@@ -49,7 +49,7 @@ function run(result, targetDir, options) {
 }
 
 function ask(targetDir, options) {
-    const defaultProjectName = !targetDir ? 'lowcode-element' : targetDir
+    const defaultProjectName = !targetDir ? 'my-element' : targetDir
 
     if (options.enforce) {
         const value = String(defaultProjectName).split('/')
@@ -84,7 +84,7 @@ function ask(targetDir, options) {
 }
 
 program.version('0.0.1', '-v, --version')
-    .argument('[name]', 'lowcode element name')
+    .argument('[name]', 'my element')
     .action(function (name) {
         if (isValidPackageName(name)) {
             const options = program.opts();

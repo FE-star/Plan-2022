@@ -1,4 +1,6 @@
 import { fileURLToPath, URL } from "node:url";
+// @ts-ignore
+import pkg from './package.json'
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -17,7 +19,7 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue'],
+      external: Object.keys(pkg.dependencies),
     },
     lib: {
       entry: './src/App.vue',
