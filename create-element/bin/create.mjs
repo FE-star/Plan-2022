@@ -32,9 +32,7 @@ function run(result, targetDir, options) {
     }
 
     const pkg = { name: result.projectName, version: '0.0.0', files: [
-        "es/",
-        "lib/",
-        "build",
+        "src/",
         "dist"
       ], }
     fs.writeFileSync(path.resolve(root, 'package.json'), JSON.stringify(pkg, null, 2))
