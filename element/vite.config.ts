@@ -9,6 +9,11 @@ import { pre, post } from './plugins/namespace'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  test: {
+    coverage: {
+      provider: 'c8'
+    }
+  },
   plugins: [pre(), vue(), post()],
   resolve: {
     alias: {

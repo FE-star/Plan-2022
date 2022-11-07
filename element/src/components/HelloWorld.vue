@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   msg: string;
+  flag: string;
 }>();
 </script>
 
