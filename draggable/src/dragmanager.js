@@ -10,7 +10,7 @@ export default class DragManager {
             this._calPos(e)
         })
     }
-
+    
     dragstart(e) {
         this.current = e.target.dataset.material
         this.opData = {
@@ -25,7 +25,7 @@ export default class DragManager {
         const { value } = this.ref
         if (e.target.isDragContent) {
             const index = value.indexOf(this.opData)
-            if (value.indexOf(this.opData) < 0) {
+            if (index < 0) {
                 this.ref.value.push(this.opData)
             } else if (index !== value.length - 1) {
                 this.ref.value.splice(index, 1)
