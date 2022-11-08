@@ -51,6 +51,12 @@ export default class DragManager {
         el.addEventListener('drop', (e) => this.drop(e))
     }
 
+    dragexist(e) {
+        const i = +e.target.dataset.index
+        this.opData = this.ref.value[i]
+        this.opData.state = 2
+    }
+
     dragover(e) {
         e.preventDefault()
         this.calPos(e)

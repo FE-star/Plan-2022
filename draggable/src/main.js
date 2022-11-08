@@ -13,6 +13,12 @@ createApp(App)
         el.addEventListener('dragstart', (e) => dragManager.dragstart(e))
     })
     .directive('dragcontent', (el, binding) => {
+        el.querySelectorAll('.material-item:not([draggable])').forEach(el => {
+            if (!el.draggable) {
+                el.draggable = true
+                el.addEventListener('dragstart', (e) => dragManager.dragexist(e))
+            }
+        })
         dragManager.setContainer(el, binding)
     })
     .mount('#app')
